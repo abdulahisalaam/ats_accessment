@@ -1,0 +1,51 @@
+<!-- template/registration/login.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="back">
+    <div class="div-center">
+        <div class="content">
+        <h3>LogIn</h3>
+            
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    {% for field in form %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                    </div>
+                    <br/>
+                    {% endfor %}
+                    <button class="btn btn-outline-warning outline-warning" value="submit" type="Submit">Log In</button>
+                </form>
+        </div>
+    </div> 
+</div>      
+
+{% endblock %}
+
+<div class="back">
+
+
+    <div class="div-center">
+  
+  
+      <div class="content">
+        <h2>Login</h2>
+        <hr />
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <hr />
+          <button type="button" class="btn btn-link">Signup</button>
+          <button type="button" class="btn btn-link">Reset Password</button>
+        </form>
+      </div>
+      </span>
+    </div>

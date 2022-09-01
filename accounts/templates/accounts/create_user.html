@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% for entry in form %}
+  <div>
+    {{entry.label_tag }}
+  </div>
+  <div>
+    {{ entry }}
+  </div>
+  {% endfor %}
+  <input type="Submit" name="" value="Signup">
+</form>
+
+{% endblock %}

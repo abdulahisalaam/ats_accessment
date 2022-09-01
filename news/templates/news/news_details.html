@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<br/>
+<div class="container">
+    <div class="col-md-12 col-lg-12">
+        <article class="post vt-post">
+            <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4">
+                    <div class="post-type post-img">
+                        <a href="#"><img src="{{ new.image.url }}" class="img-responsive" alt="image post"></a>
+                    </div>
+                    <div class="author-info author-info-2">
+                        <ul class="list-inline">
+                            <li>
+                                <div class="info">
+                                    <span>Posted by: {{ new.author }} |</span>
+                                    <span>Posted on: <strong>created: {{ new.created |date:"N j, Y" }}</strong></span>
+                                    {% if  user.is_authenticated %}
+                                    {% if post.author == user %}
+                                    <small><a href="{% url 'update-post' new.id %}" class="navbar-brand">Update</a>|
+                                      <a href="{% url 'delete-new' new.id %}" class="navbar-brand">Delete</a></small>
+                                    {% endif %}
+                                    {% endif %}
+                                    <hr/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+                    <div class="caption">
+                        <h3 class="md-heading"><a href="#">{{ new.title }}</a></h3>
+                        <p> {{new.content|safe}}</p>
+                        <br>
+                        <li>
+                          <span>({{ news_comment_counts }})|Comments</span>
+                          {% for comment in news_comments %}
+                            <div class="info">
+                                <img src="{{ comment.user.avatar.url }}" class="rounded-circle" style="width: 150px;" alt="Avatar"/>by:
+                                <a href="{% url 'accounts:user-details' comment.user.id %}"><span>{{comment.user}}</span><a>
+                                <time class="ml-4 opacity-70 small-3">{{comment.created}}</time>
+                                <hr/>
+                                <p>{{comment.content|safe|striptags}}</p>
+                          {% empty %}
+                                  <p>No comment yet ...</p>
+                          {% endfor %}
+                            </div>
+                        </li>
+
+                        <!--display the form-->
+                        <form method="POST" action="{% url 'news:news-details' new.pk %}">
+                          {% csrf_token %}
+                          <div class="form-group">
+                            {{ form.as_p }}
+                          </div>
+                          <button class="btn btn-primary btn-block" type="submit">Comment</button>
+                        </form>
+
+                </div>
+            </div>
+        </article>
+{% endblock%}

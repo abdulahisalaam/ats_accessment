@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="w3-container w3-white">
+<div class="container mt-5">
+  <div class="row">
+    {% for news in new_list %}
+    <div class="card col-lg-6 offset-lg-3 mb-3">
+      <div class="card-body">
+          <div class="row" id="newsType"></div>
+        <div class="row" id="newsdetails"></div>
+        <a href="{% url 'news:news-details' news.id %}">
+          <h2 class="card-title my-3"> {{ news.title }}</h2>
+          <div class="article-body">
+            {{news.content|safe}} <!-- remove linebreaks -->
+        </div>
+          <p class="card-text mb-auto py-2">{{ news.content|safe|striptags|truncatechars:100 }}</p>
+          <div>
+            <a href="{% url 'news:news-details' news.id %}" class="btn btn-primary btn-sm">Read more</a>
+          </div>
+        </a>
+        </div>
+    </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %}
+  </div>
+  
+{% endblock %}

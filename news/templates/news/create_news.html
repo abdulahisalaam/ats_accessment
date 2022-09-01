@@ -1,0 +1,28 @@
+<!-- templates/user_edit.html -->
+{% extends "base.html" %}
+
+{% block title %}Update User{% endblock %}
+
+{% block content %}
+<div class="container">
+<form method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p>
+  {% for entry in form %}
+    <div class="form-control">{{entry.label_tag }}
+        {{ form.media }} 
+    {{ entry }}
+    {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+    {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+  {% endfor %}
+  </div>
+  </p>
+  <input type="Submit" name="" value="Submit">
+</form>
+</div>
+
+{% endblock %}
